@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+{% include "navbar.html" %}
+<div class="panel panel-default bootcards-summary">
+		  <div class="panel-heading">
+		    <h3 class="panel-title">Select a make</h3>
+		  </div>
+		  <div class="panel-body">
+		    <div class="row">
+		    	{% for make in make %}
+			      <div class="col-xs-6 col-sm-4">
+			        <a class="bootcards-summary-item" href="{{url_for('showModels', make_id=make.id)}}">
+			        	<img height="100" width="150" src={{make.logo}}>
+			          	<h5>{{make.company}}</h5>
+			        </a>
+			      </div>
+		    	{% endfor %}
+		    </div>
+		  </div>
+		  <div class="panel-footer">
+		  </div>
+</div>
+{% endblock %}

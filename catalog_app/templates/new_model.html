@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+{% include "navbar.html" %}
+<div class="panel panel-default bootcards-summary">
+		  <div class="panel-heading">
+		    <h3 class="panel-title">Create new model</h3>
+		  </div>
+		  <div class="panel-body">
+		    <div class="row">
+		      <div class="col-xs-6 col-sm-4">
+		          	<form action="{{ url_for('newModel', make_id=make_id)}}" method = 'post'>
+		          		<p>Model Name:</p>
+		          			<input type='text' size='30' name='model'>
+		          		<p>Image URL:</p>
+		          			<input type='text' size='30' name='image_url'>
+		          		<p>Price:</p>
+		          			<input type='text' size='30' name='price'>
+		          		<p>Horsepower:</p>
+		          			<input type='text' size='30' name='hp'>
+		          		<p>mpg:</p>
+		          			<input type='text' size='30' name='mpg'>
+		          	<input type='submit' value='Create'>
+		          	</form>
+		          	<a href ="{{ url_for('showModels', make_id=make_id)}}">Cancel</a>
+		      </div>
+		    </div>
+		  </div>
+		  <div class="panel-footer">
+		  </div>
+</div>
+{% endblock %}

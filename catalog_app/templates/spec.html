@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+{% include "navbar.html" %}
+<div class="panel panel-default bootcards-summary">
+		  <div class="panel-heading">
+		    <h1 class="panel-title">{{model.name}}</h1>
+		  </div>
+		  <div class="panel-body">
+		    <div class="row">
+		    	{% for specs in specs %}
+			    	<div class="col-sm-6">
+			    		<img class="img-responsive" src={{model.picture_url}}>
+			    	</div>
+			    	<div class="col-sm-6" style="text-align:center">
+			          	<h4>Starting Price: {{specs.price}}</h4>
+			          	<h4>{{specs.hp}}</h4>
+			          	<h4>mpg: {{specs.mpg}}</h4>
+	    			</div>
+		    	{% endfor %}
+		    </div>
+		  </div>
+		  <div class="panel-footer">
+		  </div>
+</div>
+{% endblock %}

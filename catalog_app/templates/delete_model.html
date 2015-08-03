@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+{% include "navbar.html" %}
+	<div class="panel panel-default bootcards-summary">
+		<div class="panel-heading">
+			<h4> Are you sure you want to delete {{model.name}}? </h4>
+
+			<form action="{{ url_for('deleteModel', make_id=make_id, car_id=model.id)}}" method = 'post'>
+
+			<input type='submit', value = 'Delete'>
+
+			</form>
+
+			<a href = "{{ url_for('showModels', make_id=make_id)}}"> Cancel </a>
+		</div>
+		<div class="panel-footer">
+		</div>
+	</div>
+{% endblock %}
+
+
+
+

@@ -5,5 +5,6 @@ Base = declarative_base()
 
 engine = create_engine('sqlite:///car.db')
 
+# Drops database when executed from command line
 Base.metadata.reflect(engine)
 Base.metadata.drop_all(engine)

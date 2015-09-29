@@ -23,6 +23,13 @@ class Model(Base):
     make_id = Column(Integer, ForeignKey('make.id'))
     make = relationship(Make)
 
+    @property
+    def serialize(self):
+        return {
+            'name': self.name,
+            'id': self.id,
+        }
+
 
 class Specs(Base):
     __tablename__ = 'specs'
@@ -36,6 +43,18 @@ class Specs(Base):
     make_id = Column(Integer, ForeignKey('make.id'))
     make = relationship(Make)
 
+    @property
+    def serialize(self):
+        return {
+            'id': self.id,
+            'price': self.price,
+            'hp': self.hp,
+            'mpg': self.mpg,
+            'car_id': self.car_id,
+            'make_id': self.make_id,
+        }
+
 engine = create_engine('sqlite:///car.db')
 
+# Creates database when executed from command line
 Base.metadata.create_all(engine)

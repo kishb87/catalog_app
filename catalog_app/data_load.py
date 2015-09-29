@@ -5,18 +5,11 @@ from database_setup import Make, Base, Model, Specs
 import json
 
 engine = create_engine('sqlite:///Car.db')
-# Bind the engine to the metadata of the Base class so that the
-# declaratives can be accessed through a DBSession instance
+
 Base.metadata.bind = engine
 
 DBSession = sessionmaker(bind=engine)
-# A DBSession() instance establishes all conversations with the database
-# and represents a "staging zone" for all the objects loaded into the
-# database session object. Any change made against the objects in the
-# session won't be persisted into the database until you call
-# session.commit(). If you're not happy about the changes, you can
-# revert all of them back to the last commit by calling
-# session.rollback()
+
 session = DBSession()
 
 car_1 = Make(company="BMW",
@@ -165,16 +158,6 @@ nissan_string = {"results": [
                     "hp": "182 HP",
                     "model": "Altima",
                     "image/_alt": "2015 Nissan Altima"
-                },
-    {
-                    "make": "nissan",
-                    "image": "https://s.yimg.com/bt/api/res/1.2/_9BAPiPQON5tVK98NO1bSA--/YXBwaWQ9eW5ld3M7dz01MDA-/https://s.yimg.com/bt/api/res/1.2/t0B09Zm6sO8O23cLSBHpQQ--/YXBwaWQ9eW5ld3M7Zmk9ZmlsbDt3PTEyODA7aD01ODY-/https://s.yimg.com/dh/ap/default/150316/no_image_car.jpg",
-                    "mpg": "22 CITY / 30 HWY",
-                    "img_url": "<img src=\"https://s.yimg.com/bt/api/res/1.2/_9BAPiPQON5tVK98NO1bSA--/YXBwaWQ9eW5ld3M7dz01MDA-/https://s.yimg.com/bt/api/res/1.2/t0B09Zm6sO8O23cLSBHpQQ--/YXBwaWQ9eW5ld3M7Zmk9ZmlsbDt3PTEyODA7aD01ODY-/https://s.yimg.com/dh/ap/default/150316/no_image_car.jpg\" width=\"100%\" alt=\"2016 Nissan Maxima\" data-reactid=\".rudjuxophc.1.3.0.1:2.0.$main-4-AutoCarousel.1.0.0:$carousel-1.1.$=11:0.$=10:0.0.$li-carouselItem-1.$carouselItem-1.0.0\" />",
-                    "price": "$32,410",
-                    "hp": "300 HP",
-                    "model": "2016 Maxima",
-                    "image/_alt": "2016 Nissan Maxima"
                 },
     {
                     "make": "nissan",
@@ -458,7 +441,9 @@ toyota_string = {"results": [
                 }
 ]}
 
-load_list = [bmw_string, tesla_string, nissan_string, lexus_string, mercedes_string, toyota_string]
+load_list = [bmw_string, tesla_string, nissan_string,
+             lexus_string, mercedes_string, toyota_string]
+
 
 def load_bmw():
     for i in range(0, 7):
@@ -470,6 +455,7 @@ def load_bmw():
         model_input = Model(name=model, picture_url=image_url, make_id=make_id)
         session.add(model_input)
         session.commit()
+        make_id = 1
         price = json.dumps(load_list[0]["results"][i]["price"])
         hp = json.dumps(load_list[0]["results"][i]["hp"])
         mpg = json.dumps(load_list[0]["results"][i]["mpg"])
@@ -482,6 +468,7 @@ def load_bmw():
         session.add(spec_input)
         session.commit()
 
+
 def load_tesla():
     for i in range(0, 1):
         model = json.dumps(load_list[1]["results"][i]["model"])
@@ -492,20 +479,22 @@ def load_tesla():
         model_input = Model(name=model, picture_url=image_url, make_id=make_id)
         session.add(model_input)
         session.commit()
+        new_car_id = 8
         price = json.dumps(load_list[1]["results"][i]["price"])
         hp = json.dumps(load_list[1]["results"][i]["hp"])
         mpg = json.dumps(load_list[1]["results"][i]["mpg"])
         price = price[1:-1]
         hp = hp[1:-1]
         mpg = mpg[1:-1]
-        car_id = i + 1
+        car_id = i + new_car_id
         spec_input = Specs(
             price=price, hp=hp, mpg=mpg, make_id=make_id, car_id=car_id)
         session.add(spec_input)
         session.commit()
 
+
 def load_nissan():
-    for i in range(0, 8):
+    for i in range(0, 7):
         model = json.dumps(load_list[2]["results"][i]["model"])
         image_url = json.dumps(load_list[2]["results"][i]["image"])
         image_url = image_url[1:-1]
@@ -514,17 +503,19 @@ def load_nissan():
         model_input = Model(name=model, picture_url=image_url, make_id=make_id)
         session.add(model_input)
         session.commit()
+        new_car_id = 9
         price = json.dumps(load_list[2]["results"][i]["price"])
         hp = json.dumps(load_list[2]["results"][i]["hp"])
         mpg = json.dumps(load_list[2]["results"][i]["mpg"])
         price = price[1:-1]
         hp = hp[1:-1]
         mpg = mpg[1:-1]
-        car_id = i + 1
+        car_id = i + new_car_id
         spec_input = Specs(
             price=price, hp=hp, mpg=mpg, make_id=make_id, car_id=car_id)
         session.add(spec_input)
         session.commit()
+
 
 def load_lexus():
     for i in range(0, 7):
@@ -536,18 +527,18 @@ def load_lexus():
         model_input = Model(name=model, picture_url=image_url, make_id=make_id)
         session.add(model_input)
         session.commit()
+        new_car_id = 16
         price = json.dumps(load_list[3]["results"][i]["price"])
         hp = json.dumps(load_list[3]["results"][i]["hp"])
         mpg = json.dumps(load_list[3]["results"][i]["mpg"])
         price = price[1:-1]
         hp = hp[1:-1]
         mpg = mpg[1:-1]
-        car_id = i + 1
+        car_id = i + new_car_id
         spec_input = Specs(
             price=price, hp=hp, mpg=mpg, make_id=make_id, car_id=car_id)
         session.add(spec_input)
         session.commit()
-
 
 
 def load_mercedes():
@@ -560,17 +551,19 @@ def load_mercedes():
         model_input = Model(name=model, picture_url=image_url, make_id=make_id)
         session.add(model_input)
         session.commit()
+        new_car_id = 23
         price = json.dumps(load_list[4]["results"][i]["price"])
         hp = json.dumps(load_list[4]["results"][i]["hp"])
         mpg = json.dumps(load_list[4]["results"][i]["mpg"])
         price = price[1:-1]
         hp = hp[1:-1]
         mpg = mpg[1:-1]
-        car_id = i + 1
+        car_id = i + new_car_id
         spec_input = Specs(
             price=price, hp=hp, mpg=mpg, make_id=make_id, car_id=car_id)
         session.add(spec_input)
         session.commit()
+
 
 def load_toyota():
     for i in range(0, 7):
@@ -582,19 +575,21 @@ def load_toyota():
         model_input = Model(name=model, picture_url=image_url, make_id=make_id)
         session.add(model_input)
         session.commit()
+        new_car_id = 32
         price = json.dumps(load_list[5]["results"][i]["price"])
         hp = json.dumps(load_list[5]["results"][i]["hp"])
         mpg = json.dumps(load_list[5]["results"][i]["mpg"])
         price = price[1:-1]
         hp = hp[1:-1]
         mpg = mpg[1:-1]
-        car_id = i + 1
+        car_id = i + new_car_id
         spec_input = Specs(
             price=price, hp=hp, mpg=mpg, make_id=make_id, car_id=car_id)
         session.add(spec_input)
         session.commit()
-        
 
+
+# Loads data models to database when excuted from command line
 
 load_bmw()
 load_tesla()

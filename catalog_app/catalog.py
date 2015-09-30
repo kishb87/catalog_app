@@ -180,14 +180,17 @@ def newModel(make_id):
         new_model = Model(name=request.form["model"], picture_url=request.form[
                           "image_url"], make_id=make_id)
 
-        entries = session.query(Model).count()
-        car_id = entries + 1
-        new_specs = Specs(price=request.form["price"],
-                          hp=request.form["hp"], mpg=request.form["mpg"],
-                          make_id=make_id, car_id=car_id)
-
         session.add(new_model)
         session.commit()
+
+        # This query retreives the model that was just inserted
+        car = session.query(Model).order_by(Model.id.desc()).first()
+
+        # Inserts specs into Specs table for new model based on it's ID
+        new_specs = Specs(price=request.form["price"],
+                          hp=request.form["hp"], mpg=request.form["mpg"],
+                          make_id=make_id, car_id=car.id)
+
         session.add(new_specs)
         session.commit()
         return redirect(url_for('showModels', make_id=make_id))

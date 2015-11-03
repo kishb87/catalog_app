@@ -3,7 +3,7 @@ from sqlalchemy import create_engine
 
 Base = declarative_base()
 
-engine = create_engine('sqlite:///car.db')
+engine = create_engine('postgresql:///catalog')
 
 # Drops database when executed from command line
 Base.metadata.reflect(engine)

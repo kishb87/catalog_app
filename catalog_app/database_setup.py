@@ -54,7 +54,7 @@ class Specs(Base):
             'make_id': self.make_id,
         }
 
-engine = create_engine('sqlite:///car.db')
+engine = create_engine('postgresql:///catalog')
 
 # Creates database when executed from command line
 Base.metadata.create_all(engine)

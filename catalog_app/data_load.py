@@ -4,7 +4,7 @@ from sqlalchemy.orm import sessionmaker
 from database_setup import Make, Base, Model, Specs
 import json
 
-engine = create_engine('sqlite:///Car.db')
+engine = create_engine('postgresql:///catalog')
 
 Base.metadata.bind = engine
 
